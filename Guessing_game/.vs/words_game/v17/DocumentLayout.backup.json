@@ -26,9 +26,9 @@
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\word_game-A-05-\\Guessing_game\\word_game(Client)\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "word_game(Client)\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\word_game-A-05-\\Guessing_game\\word_game(Client)\\MainWindow.xaml.cs*",
-              "RelativeToolTip": "word_game(Client)\\MainWindow.xaml.cs*",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAACQAAABNAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\word_game-A-05-\\Guessing_game\\word_game(Client)\\MainWindow.xaml.cs",
+              "RelativeToolTip": "word_game(Client)\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAwwB0AAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-13T23:36:16.102Z",
               "EditorCaption": ""
@@ -42,7 +42,8 @@
               "ToolTip": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\word_game-A-05-\\Guessing_game\\word_game(Client)\\MainWindow.xaml",
               "RelativeToolTip": "word_game(Client)\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-13T23:31:41.98Z"
+              "WhenOpened": "2024-11-13T23:31:41.98Z",
+              "EditorCaption": ""
             }
           ]
         }

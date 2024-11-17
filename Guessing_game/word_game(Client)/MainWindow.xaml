@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:word_game_Client_"
         mc:Ignorable="d"
-        Title="Word Guessing Game" Height="800" Width="850">
+        Title="Word Guessing Game" Height="800" Width="850" Closing="Window_Closing">
     <Grid>
+        <TextBlock Name="txtTimer" 
+           FontSize="20" 
+           FontWeight="Bold" 
+           VerticalAlignment="Top" 
+           HorizontalAlignment="Left" 
+           Margin="65,520,0,0" 
+           Text="Timer: 0"/>
+
         <TextBlock Text="1. IP Address (fixed as 127.0.0.1)" 
                    FontWeight="Bold" VerticalAlignment="Top" Margin="315,25,285,0" Width="250"/>
 
@@ -29,5 +37,7 @@
         <TextBox Name="txtGameInfo" Width="300" Height="150" VerticalAlignment="Top" Margin="250,458,250,0" IsReadOnly="True" AcceptsReturn="True" />
         <TextBox Name="txtGuess" Width="300" Height="25" VerticalAlignment="Top" Margin="250,672,250,0"/>
         <Button Content="Submit Guess" Width="150" Height="40" VerticalAlignment="Top" Margin="315,712,335,0" Click="OnSubmitGuessClick"/>
+        <TextBlock HorizontalAlignment="Left" Margin="291,428,0,0" TextWrapping="Wrap" Text="Result window :" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Margin="275,651,0,0" TextWrapping="Wrap" Text="Your input : " VerticalAlignment="Top" FontSize="14" FontStyle="Italic" FontWeight="Bold"/>
     </Grid>
 </Window>

@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using word_game_Server_;
 
-namespace words_game_Server_
+namespace WordGuessingServer
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
+            Listener listener = new Listener();
+            listener.StartListener();
+
+            Console.WriteLine("Press Enter to End");
+            Console.ReadLine();
         }
+
     }
 }
