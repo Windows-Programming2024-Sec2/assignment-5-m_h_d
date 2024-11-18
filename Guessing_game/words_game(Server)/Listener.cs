@@ -64,7 +64,7 @@ namespace word_game_Server_
 
                 String data = null;
                 int wordFound = 0;
-
+                List<string> validWords = new List<string> { "this", "a" };
 
                 // Get a stream object for reading and writing
                 NetworkStream stream = client.GetStream();
@@ -74,53 +74,58 @@ namespace word_game_Server_
                 // Loop to receive all the data sent by the client.
                 while (true)
                 {
-
-                    data = ReadMsg(stream);
-
-                    // if the user choice to close the client side app
-                    if (data == "shut down")
-                    {
-                        break;
-                    }
-
-                    // Process the data sent by the client to see if it in the list
-                    data = CheckWord(data);
-
-                    // if nothing found in the list 
-                    if (data == "nothing")
-                    {
-                        SendMsg("Sorry!! " + data + "found there", stream);
-                    }
-
-                    // if the input is exist in the list
-                    else
+                    // this for testing the connection
+                    if (data != "ping_test")
                     {
 
-                        wordFound++;
+                        data = ReadMsg(stream);
 
-                        // if the user found all the words 
-                        if (wordFound == 2)
+                        // if the user choice to close the client side app
+                        if (data == "shut down")
                         {
-                            // send the last word that he found + ask him if he want to play again
-                            SendMsg("Correct!! \n  you found ( " + wordFound + " ) out of  " + numOfWords
-                                + "\n Good job , you found all the words " +
-                                "\n do you want to play again ? (y , n )", stream);
-
-                            // if yes 
-                            if (ReadMsg(stream).ToUpper() == "Y")
-                            {
-                                // send a flag to the client side to start a new one 
-                                SendMsg("again", stream);
-                            }
-                            // go out to close the session
                             break;
+
                         }
 
-                        // if the user entered an exist word  in the list  ,but did not find all of them yet.
+                        // Process the data sent by the client to see if it in the list
+                        data = CheckWord(data, validWords);
+
+                        // if nothing found in the list 
+                        if (data == "nothing")
+                        {
+                            SendMsg("Sorry!! " + data + "found there", stream);
+                        }
+
+                        // if the input is exist in the list
                         else
                         {
-                            //notify him with the new counter
-                            SendMsg("Correct!! \n  you found ( " + wordFound + " ) out of  " + numOfWords, stream);
+
+                            wordFound++;
+
+                            // if the user found all the words 
+                            if (wordFound == 2)
+                            {
+                                // send the last word that he found + ask him if he want to play again
+                                SendMsg("Correct!! \n  you found ( " + wordFound + " ) out of  " + numOfWords
+                                    + "\n Good job , you found all the words " +
+                                    "\n do you want to play again ? (y , n )", stream);
+
+                                // if yes 
+                                if (ReadMsg(stream).ToUpper() == "Y")
+                                {
+                                    // send a flag to the client side to start a new one 
+                                    SendMsg("again", stream);
+                                }
+                                // go out to close the session
+                                break;
+                            }
+
+                            // if the user entered an exist word  in the list  ,but did not find all of them yet.
+                            else
+                            {
+                                //notify him with the new counter
+                                SendMsg("Correct!! \n  you found ( " + wordFound + " ) out of  " + numOfWords, stream);
+                            }
                         }
                     }
 
@@ -141,13 +146,13 @@ namespace word_game_Server_
 
 
 
-        public string CheckWord(string word)
+        public string CheckWord(string word, List<string> lists)
         {
-            List<string> validWords = new List<string> { "this", "a" };
 
-            if (validWords.Contains(word))
+
+            if (lists.Contains(word))
             {
-                validWords.Remove(word);
+                lists.Remove(word);
                 return word;
             }
             else

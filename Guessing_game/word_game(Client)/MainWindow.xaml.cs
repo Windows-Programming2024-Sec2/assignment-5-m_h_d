@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows;
@@ -18,7 +19,7 @@ namespace word_game_Client_
         private NetworkStream networkStream;
         private byte[] buffer = new byte[1024];
         private DispatcherTimer dispatcherTimer;
-        private int timeRemaining; // Time in seconds
+        private int timeRemaining;
 
 
         public MainWindow()
@@ -59,26 +60,32 @@ namespace word_game_Client_
 
         private void OnSubmitGuessClick(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(txtGuess.Text) || tcpClient == null)
+            try
             {
-                MessageBox.Show("Please fill all the fields.");
-                txtGuess.Text = "";
-                return;
+                if (string.IsNullOrEmpty(txtGuess.Text) || tcpClient == null)
+                {
+                    MessageBox.Show("Please fill all the fields.");
+                    txtGuess.Text = "";
+                    return;
+                }
+
+
+                SendMessage(txtGuess.Text);
+                string data = ReceiveMessage();
+                if (data == "again")
+                {
+                    txtGuess.Text = "";
+                    OnConnectClick(sender, e);
+                }
+                else
+                {
+                    txtGameInfo.Text += "\n" + data;
+                    txtGuess.Text = "";
+                }
             }
-
-
-
-            SendMessage(txtGuess.Text);
-            string data = ReceiveMessage();
-            if (data == "again")
+            catch (Exception ex)
             {
-                txtGuess.Text = "";
-                OnConnectClick(sender, e);
-            }
-            else
-            {
-                txtGameInfo.Text += "\n" + data;
-                txtGuess.Text = "";
+                MessageBox.Show("Error sending / receiving data" + ex);
             }
 
 
@@ -86,7 +93,7 @@ namespace word_game_Client_
 
         private void SendMessage(string message)
         {
-            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+            byte[] messageBytes = Encoding.ASCII.GetBytes(message);
             networkStream.Write(messageBytes, 0, messageBytes.Length);
         }
 
@@ -101,14 +108,18 @@ namespace word_game_Client_
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Do you want to exit the game ?", "Exit", MessageBoxButton.YesNo);
+            MessageBoxResult result = MessageBox.Show("Do you want to leave ?", "exit", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.No)
             {
                 e.Cancel = true;
             }
             else
             {
-                SendMessage("shut down");
+                if (CheckConnection(txtIP.Text, int.Parse(txtPort.Text)))
+                {
+                    SendMessage("shut down");
+                }
+
             }
 
         }
@@ -128,7 +139,13 @@ namespace word_game_Client_
 
         private void TimerTick(object sender, EventArgs e)
         {
+            if (!CheckConnection(txtIP.Text, int.Parse(txtPort.Text)))
+            {
 
+                dispatcherTimer.Stop();
+                MessageBox.Show("serever closed");
+
+            }
 
             // Update the timer display
             if (timeRemaining > 0)
@@ -141,8 +158,29 @@ namespace word_game_Client_
                 txtTimer.Text = "Time's up!";
                 MessageBox.Show("Time is up! Game over.");
 
+
             }
         }
 
+
+        private bool CheckConnection(string ip, int portal)
+        {
+            try
+            {
+                TcpClient tmpC = new TcpClient(ip, portal);
+                NetworkStream tmpS = tmpC.GetStream();
+                byte[] messageBytes = Encoding.ASCII.GetBytes("shut down");
+                tmpS.Write(messageBytes, 0, messageBytes.Length);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+
+        }
     }
 }
+
+

@@ -1,14 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\word_game-A-05-\\Guessing_game\\",
+  "WorkspaceRootPath": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\assignment-5-m_h_d\\Guessing_game\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{55634EDB-593D-4ED9-A784-6DFE28D49315}|word_game(Client)\\words_game(Client).csproj|c:\\users\\12265\\desktop\\w programming\\a-5\\word_game-a-05-\\guessing_game\\word_game(client)\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{55634EDB-593D-4ED9-A784-6DFE28D49315}|word_game(Client)\\words_game(Client).csproj|C:\\Users\\12265\\Desktop\\W Programming\\A-5\\assignment-5-m_h_d\\Guessing_game\\word_game(client)\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{55634EDB-593D-4ED9-A784-6DFE28D49315}|word_game(Client)\\words_game(Client).csproj|solutionrelative:word_game(client)\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{55634EDB-593D-4ED9-A784-6DFE28D49315}|word_game(Client)\\words_game(Client).csproj|C:\\Users\\12265\\Desktop\\W Programming\\A-5\\word_game-A-05-\\Guessing_game\\word_game(client)\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{55634EDB-593D-4ED9-A784-6DFE28D49315}|word_game(Client)\\words_game(Client).csproj|C:\\Users\\12265\\Desktop\\W Programming\\A-5\\assignment-5-m_h_d\\Guessing_game\\word_game(client)\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{55634EDB-593D-4ED9-A784-6DFE28D49315}|word_game(Client)\\words_game(Client).csproj|solutionrelative:word_game(client)\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA778878-EBEA-43CB-965F-FB85FA5C9AF3}|words_game(Server)\\words_game(Server).csproj|c:\\users\\12265\\desktop\\w programming\\a-5\\assignment-5-m_h_d\\guessing_game\\words_game(server)\\listener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA778878-EBEA-43CB-965F-FB85FA5C9AF3}|words_game(Server)\\words_game(Server).csproj|solutionrelative:words_game(server)\\listener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA778878-EBEA-43CB-965F-FB85FA5C9AF3}|words_game(Server)\\words_game(Server).csproj|C:\\Users\\12265\\Desktop\\W Programming\\A-5\\assignment-5-m_h_d\\Guessing_game\\words_game(server)\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA778878-EBEA-43CB-965F-FB85FA5C9AF3}|words_game(Server)\\words_game(Server).csproj|solutionrelative:words_game(server)\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -24,26 +32,51 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\word_game-A-05-\\Guessing_game\\word_game(Client)\\MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\assignment-5-m_h_d\\Guessing_game\\word_game(Client)\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "word_game(Client)\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\word_game-A-05-\\Guessing_game\\word_game(Client)\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\assignment-5-m_h_d\\Guessing_game\\word_game(Client)\\MainWindow.xaml.cs",
               "RelativeToolTip": "word_game(Client)\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAwwB0AAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAxwJMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T23:36:16.102Z",
+              "WhenOpened": "2024-11-17T02:25:00.489Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\word_game-A-05-\\Guessing_game\\word_game(Client)\\MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\assignment-5-m_h_d\\Guessing_game\\word_game(Client)\\MainWindow.xaml",
               "RelativeDocumentMoniker": "word_game(Client)\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\word_game-A-05-\\Guessing_game\\word_game(Client)\\MainWindow.xaml",
-              "RelativeToolTip": "word_game(Client)\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\assignment-5-m_h_d\\Guessing_game\\word_game(Client)\\MainWindow.xaml*",
+              "RelativeToolTip": "word_game(Client)\\MainWindow.xaml*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-13T23:31:41.98Z",
+              "WhenOpened": "2024-11-17T02:24:55.704Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Listener.cs",
+              "DocumentMoniker": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\assignment-5-m_h_d\\Guessing_game\\words_game(Server)\\Listener.cs",
+              "RelativeDocumentMoniker": "words_game(Server)\\Listener.cs",
+              "ToolTip": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\assignment-5-m_h_d\\Guessing_game\\words_game(Server)\\Listener.cs",
+              "RelativeToolTip": "words_game(Server)\\Listener.cs",
+              "ViewState": "AgIAAHMAAAAAAAAAAAAYwL0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-17T02:23:27.285Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\assignment-5-m_h_d\\Guessing_game\\words_game(Server)\\Program.cs",
+              "RelativeDocumentMoniker": "words_game(Server)\\Program.cs",
+              "ToolTip": "C:\\Users\\12265\\Desktop\\W Programming\\A-5\\assignment-5-m_h_d\\Guessing_game\\words_game(Server)\\Program.cs",
+              "RelativeToolTip": "words_game(Server)\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-17T02:23:00.481Z"
             }
           ]
         }
