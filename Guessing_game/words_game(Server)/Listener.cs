@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*
+* FILE : Listener.cs
+* PROJECT : PROG2121 -  A5
+* PROGRAMMER : Mohamad Aldabea
+* FIRST VERSION : 2024 / 11  / 19 
+* DESCRIPTION :
+/// here will logic of the server will goes . it will receive the connection request from the client and
+/// start a new connection by sending and receiving the status depending on the user reactions on client side
+/// and close the client if the server received a close command
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Net;
@@ -12,18 +23,30 @@ namespace word_game_Server_
 {
     internal class Listener
     {
+        // consts to use in the program
+        private int _port = 5000;
+        private string _host = "127.0.0.1";
+        private int _byteSize = 256;
 
 
+        //
+        // Method : StartListener
+        // DESCRIPTION :this method will start lestern to a new client connection
+        // and start the game when the connection success , its multi thread method ,
+        // its can receive more than one client . 
+        // PARAMETERS : none
+        // RETURNS : void
+        //
         internal void StartListener()
         {
             TcpListener server = null;
             try
             {
                 // Set the TcpListener on port 5000.
-                Int32 port = 5000;
-                IPAddress localAddr = IPAddress.Parse("127.0.0.1");
+                Int32 port = _port;
+                IPAddress localAddr = IPAddress.Parse(_host);
 
-                // TcpListener server = new TcpListener(port);
+
                 server = new TcpListener(localAddr, port);
 
                 // Start listening for client requests.
@@ -54,7 +77,14 @@ namespace word_game_Server_
             }
         }
 
-
+        //
+        // Method : Worker
+        // DESCRIPTION : this is the start point of the game in server , it will start
+        // sending and receiving the status of the game and processing it depending on the
+        // game data in xml file and the user inputs
+        // PARAMETERS :(Object o)
+        // RETURNS : void
+        //
         private void Worker(Object o)
         {
             TcpClient client = (TcpClient)o;
@@ -76,7 +106,7 @@ namespace word_game_Server_
 
                 var selectedData = dataElements[randomIndex];
 
-
+                // load the game data in variables , and if any of them not exist , replace it with ( 0 or not found)
                 int numOfWords = int.Parse(selectedData.Element("WordCount")?.Value ?? "0");
                 List<string> validWords = selectedData.Descendants("Word").Select(w => w.Value).ToList();
                 string gameString = selectedData.Element("CharacterString")?.Value ?? "Not_found";
@@ -151,7 +181,13 @@ namespace word_game_Server_
             }
         }
 
-
+        //
+        // Method : CheckWord
+        // DESCRIPTION :this method will take a list and a word to check if
+        // the word in the list or not , and remove it if it in the list , and return the status
+        // PARAMETERS :(string word, List<string> lists)
+        // RETURNS :string
+        //
         private string CheckWord(string word, List<string> lists)
         {
 
@@ -168,10 +204,15 @@ namespace word_game_Server_
 
         }
 
-
+        //
+        // Method :  SendMsg
+        // DESCRIPTION :this method will called every time the server need to send
+        // a data to the client , by taking the message and the network stream
+        // PARAMETERS : (string msg, NetworkStream network)
+        // RETURNS : void
+        //
         private void SendMsg(string msg, NetworkStream network)
         {
-            //NetworkStream stream = client.GetStream();
 
             Byte[] bytes = Encoding.ASCII.GetBytes(msg);
             network.Write(bytes, 0, bytes.Length);
@@ -179,11 +220,18 @@ namespace word_game_Server_
 
         }
 
+        //
+        // Method :ReadMsg
+        // DESCRIPTION : this method will called every time the server need to
+        // read a data from the client , by taking  the network stream
+        // PARAMETERS :(NetworkStream network)
+        // RETURNS : string 
+        //
         private string ReadMsg(NetworkStream network)
         {
             int i;
             string input;
-            Byte[] bytes = new Byte[256];
+            Byte[] bytes = new Byte[_byteSize];
 
             // Translate data bytes to a ASCII string.
             i = network.Read(bytes, 0, bytes.Length);
@@ -193,8 +241,6 @@ namespace word_game_Server_
             return input;
         }
 
-
     }
-
 
 }

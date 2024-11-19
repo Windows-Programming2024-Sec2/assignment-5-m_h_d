@@ -1,0 +1,7 @@
+C:\Users\12265\Desktop\W Programming\A-5\assignment-5-m_h_d\Guessing_game\words_game(Server)\bin\Debug\words_game(Server).exe.config
+C:\Users\12265\Desktop\W Programming\A-5\assignment-5-m_h_d\Guessing_game\words_game(Server)\bin\Debug\words_game(Server).exe
+C:\Users\12265\Desktop\W Programming\A-5\assignment-5-m_h_d\Guessing_game\words_game(Server)\bin\Debug\words_game(Server).pdb
+C:\Users\12265\Desktop\W Programming\A-5\assignment-5-m_h_d\Guessing_game\words_game(Server)\obj\Debug\words_game(Server).csproj.AssemblyReference.cache
+C:\Users\12265\Desktop\W Programming\A-5\assignment-5-m_h_d\Guessing_game\words_game(Server)\obj\Debug\words_game(Server).csproj.CoreCompileInputs.cache
+C:\Users\12265\Desktop\W Programming\A-5\assignment-5-m_h_d\Guessing_game\words_game(Server)\obj\Debug\words_game(Server).exe
+C:\Users\12265\Desktop\W Programming\A-5\assignment-5-m_h_d\Guessing_game\words_game(Server)\obj\Debug\words_game(Server).pdb

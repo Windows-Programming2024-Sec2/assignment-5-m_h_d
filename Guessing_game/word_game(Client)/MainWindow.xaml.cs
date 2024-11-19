@@ -1,7 +1,15 @@
-﻿using System;
-using System.Net;
+﻿/*
+* FILE : MainWindow.xaml.cs
+* PROJECT : PROG2121 -  A5
+* PROGRAMMER : Mohamad Aldabea
+* FIRST VERSION : 2024 / 11  / 19 
+* DESCRIPTION :
+* The functions in this file are used to show and pristin the client side of the game 
+*/
+
+
+using System;
 using System.Net.Sockets;
-using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Windows;
 using System.Windows.Threading;
@@ -12,36 +20,50 @@ using System.Windows.Threading;
 namespace word_game_Client_
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// this class will deal with the components of the
+    /// UI and send and receive the status to the server and make 
+    /// the decisions based on that status
     /// </summary>
     public partial class MainWindow : Window
     {
-        private TcpClient tcpClient;
-        private NetworkStream networkStream;
-        private byte[] buffer = new byte[1024];
-        private DispatcherTimer dispatcherTimer;
-        private int timeRemaining;
+        // create a data that will be used later
+        private TcpClient _tcpClient;
+        private NetworkStream _stream;
+        private byte[] _buffer = new byte[256];
+        private DispatcherTimer _timer;
+        private int _timeRemaining;
 
-
+        //
+        // Method :MainWindow
+        // DESCRIPTION :  initialize the the components of the app
+        // PARAMETERS : none
+        // RETURNS : Window
+        //
         public MainWindow()
         {
             InitializeComponent();
 
         }
 
+        //
+        // Method :OnConnectClick
+        // DESCRIPTION :  this method will make a connection between the server and the client based on the user input
+        // PARAMETERS : (object sender, RoutedEventArgs e)
+        // RETURNS : void
+        //
         private void OnConnectClick(object sender, RoutedEventArgs e)
         {
             try
             {
-                tcpClient = new TcpClient(txtIP.Text, int.Parse(txtPort.Text));
-                networkStream = tcpClient.GetStream();
+                _tcpClient = new TcpClient(txtIP.Text, int.Parse(txtPort.Text));
+                _stream = _tcpClient.GetStream();
 
                 string serverResponse = ReceiveMessage();
                 chars_game.Text = serverResponse;
                 chars_game.Visibility = Visibility.Visible;
 
 
-                if (!int.TryParse(txtTimeLimit.Text, out timeRemaining) || timeRemaining <= 0)
+                if (!int.TryParse(txtTimeLimit.Text, out _timeRemaining) || _timeRemaining <= 0)
                 {
                     MessageBox.Show("Please enter a valid positive number for the time limit.");
                     return;
@@ -58,11 +80,19 @@ namespace word_game_Client_
             }
         }
 
+        //
+        // Method :OnSubmitGuessClick
+        // DESCRIPTION :  the logic of the game status will be here , this method will start
+        // sending and receiving the status to the server and make the a decision based on that
+        // status and display it for the user .
+        // PARAMETERS : (object sender, RoutedEventArgs e)
+        // RETURNS : void
+        //
         private void OnSubmitGuessClick(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (string.IsNullOrEmpty(txtGuess.Text) || tcpClient == null)
+                if (string.IsNullOrEmpty(txtGuess.Text) || _tcpClient == null)
                 {
                     MessageBox.Show("Please fill all the fields.");
                     txtGuess.Text = "";
@@ -76,7 +106,7 @@ namespace word_game_Client_
                 if (data == "all_found")
                 {
                     MessageBox.Show(data);
-                    dispatcherTimer.Stop();
+                    _timer.Stop();
                     txtGuess.Text = "";
                     MessageBoxResult result = MessageBox.Show(ReceiveMessage(), "exit", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)
@@ -105,28 +135,46 @@ namespace word_game_Client_
 
         }
 
+        //
+        // Method :SendMessage
+        // DESCRIPTION :  this method will be used every time the client want to send a message to the server
+        // PARAMETERS :string message
+        // RETURNS : void
+        //
         private void SendMessage(string message)
         {
             byte[] messageBytes = Encoding.ASCII.GetBytes(message);
-            networkStream.Write(messageBytes, 0, messageBytes.Length);
+            _stream.Write(messageBytes, 0, messageBytes.Length);
         }
 
+        //
+        // Method :ReceiveMessage
+        // DESCRIPTION :  this method will be used every time the client want to receive a message from the server
+        // PARAMETERS : none
+        // RETURNS : string 
+        //
         private string ReceiveMessage()
         {
-            int bytesRead = networkStream.Read(buffer, 0, buffer.Length);
-            return Encoding.ASCII.GetString(buffer, 0, bytesRead);
+            int bytesRead = _stream.Read(_buffer, 0, _buffer.Length);
+            return Encoding.ASCII.GetString(_buffer, 0, bytesRead);
 
         }
 
-
+        //
+        // Method :Window_Closing
+        // DESCRIPTION :  this method will handle the closing app , the user will ask by the server to
+        // conform the closing and check if the client connect to server or no ( for safely closing )
+        // PARAMETERS :(object sender, System.ComponentModel.CancelEventArgs e)
+        // RETURNS : void
+        //
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            dispatcherTimer.Stop();
+            _timer.Stop();
             MessageBoxResult result = MessageBox.Show("Do you want to leave ?", "exit", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.No)
             {
                 e.Cancel = true;
-                dispatcherTimer.Start();
+                _timer.Start();
             }
             else
             {
@@ -139,38 +187,50 @@ namespace word_game_Client_
 
         }
 
-
+        //
+        // Method :StartTimer
+        // DESCRIPTION :  this method will present the timer on the app that will count down in sec depending on user input
+        // PARAMETERS : none
+        // RETURNS : void
+        //
         private void StartTimer()
         {
             // Initialize the DispatcherTimer
-            dispatcherTimer = new DispatcherTimer
+            _timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1) // Tick every second
             };
 
-            dispatcherTimer.Tick += TimerTick;
-            dispatcherTimer.Start();
+            _timer.Tick += TimerTick;
+            _timer.Start();
         }
 
+        //
+        // Method :TimerTick
+        // DESCRIPTION :  this method will keep the timer updating every 1sec and check
+        // of the connection between the server and the clint , if the connection lost , the client will notified
+        // PARAMETERS : (object sender, EventArgs e)
+        // RETURNS : void
+        //
         private void TimerTick(object sender, EventArgs e)
         {
             if (!CheckConnection(txtIP.Text, int.Parse(txtPort.Text)))
             {
 
-                dispatcherTimer.Stop();
+                _timer.Stop();
                 MessageBox.Show("serever closed");
                 Content.IsEnabled = false;
                 submit.IsEnabled = false;
             }
 
             // Update the timer display
-            if (timeRemaining > 0)
+            if (_timeRemaining > 0)
             {
-                txtTimer.Text = $"Timer: {timeRemaining--} seconds remaining";
+                txtTimer.Text = $"Timer: {_timeRemaining--} seconds remaining";
             }
             else
             {
-                dispatcherTimer.Stop();
+                _timer.Stop();
                 txtTimer.Text = "Time's up!";
                 MessageBox.Show("Time is up! Game over.");
 
@@ -179,6 +239,14 @@ namespace word_game_Client_
         }
 
 
+        //
+        // Method :CheckConnection
+        // DESCRIPTION : this method will check if the connection between
+        // the client and server ( the client data will depending on the parameters
+        // {which client to check} ) , and return the status 
+        // PARAMETERS :(string ip, int portal)
+        // RETURNS : bool
+        //
         private bool CheckConnection(string ip, int portal)
         {
             try
@@ -197,6 +265,13 @@ namespace word_game_Client_
 
         }
 
+        //
+        // Method :DataAccess
+        // DESCRIPTION :  this method will change the access of the
+        // client data ( ip , timer , etc ) depending on the status
+        // PARAMETERS : (bool status)
+        // RETURNS : void
+        //
         private void DataAccess(bool status)
         {
             if (status)
