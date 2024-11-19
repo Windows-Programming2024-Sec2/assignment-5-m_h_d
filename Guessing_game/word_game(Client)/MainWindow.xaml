@@ -12,7 +12,7 @@
            FontWeight="Bold" 
            VerticalAlignment="Top" 
            HorizontalAlignment="Left" 
-           Margin="65,520,0,0" 
+           Margin="315,392,0,0" 
            Text="Timer: 0"/>
 
         <TextBlock Text="1. IP Address (fixed as 127.0.0.1)" 
@@ -32,12 +32,15 @@
         <TextBox Name="txtPort" Width="200" Height="25" VerticalAlignment="Top" Margin="300,128,300,0"/>
         <TextBox Name="txtName" Width="200" Height="25" VerticalAlignment="Top" Margin="300,202,300,0"/>
         <TextBox Name="txtTimeLimit" Width="200" Height="25" VerticalAlignment="Top" Margin="300,270,300,0"/>
-        <Button Content="Connect" Width="200" Height="40" VerticalAlignment="Top" Margin="300,322,300,0" Click="OnConnectClick"/>
+        <Button Content="Connect" Name="Content" Width="200" Height="40" VerticalAlignment="Top" Margin="300,322,300,0" Click="OnConnectClick"/>
 
-        <TextBox Name="txtGameInfo" Width="300" Height="150" VerticalAlignment="Top" Margin="250,458,250,0" IsReadOnly="True" AcceptsReturn="True" />
+        <TextBox Name="txtGameInfo" Height="150" VerticalAlignment="Top" Margin="31,432,51,0" IsReadOnly="True" AcceptsReturn="True" />
         <TextBox Name="txtGuess" Width="300" Height="25" VerticalAlignment="Top" Margin="250,672,250,0"/>
-        <Button Content="Submit Guess" Width="150" Height="40" VerticalAlignment="Top" Margin="315,712,335,0" Click="OnSubmitGuessClick"/>
-        <TextBlock HorizontalAlignment="Left" Margin="291,428,0,0" TextWrapping="Wrap" Text="Result window :" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Button Content="Submit Guess" Name="submit" Width="150" Height="40" VerticalAlignment="Top" Margin="315,712,335,0" Click="OnSubmitGuessClick"/>
+        <TextBlock HorizontalAlignment="Left" Margin="84,392,0,0" TextWrapping="Wrap" Text="Result window :" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
         <TextBlock HorizontalAlignment="Left" Margin="275,651,0,0" TextWrapping="Wrap" Text="Your input : " VerticalAlignment="Top" FontSize="14" FontStyle="Italic" FontWeight="Bold"/>
+
+
+        <TextBlock x:Name="chars_game" Margin="0,587,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="64" FontFamily="Arial Black" FontSize="16" Visibility="Collapsed"  />
     </Grid>
 </Window>

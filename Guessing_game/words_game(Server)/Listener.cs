@@ -4,14 +4,15 @@ using System.Net.Sockets;
 using System.Net;
 using System.Text;
 using System.Threading;
+using System.Xml.Linq;
+using System.Linq;
 
 
 namespace word_game_Server_
 {
     internal class Listener
     {
-        private static string gameString = "thisawhenaeb";  // 80 character string, could be from file
-        private static int numOfWords = 2;
+
 
         internal void StartListener()
         {
@@ -32,7 +33,6 @@ namespace word_game_Server_
                 // Enter the listening loop.
                 while (true)
                 {
-
 
                     // Perform a blocking call to accept requests.
                     // You could also user server.AcceptSocket() here.
@@ -55,79 +55,87 @@ namespace word_game_Server_
         }
 
 
-        public void Worker(Object o)
+        private void Worker(Object o)
         {
             TcpClient client = (TcpClient)o;
-
+            Random r = new Random();
             try
             {
 
                 String data = null;
                 int wordFound = 0;
-                List<string> validWords = new List<string> { "this", "a" };
+
+                // Load the XML file
+                XDocument xmlDoc = XDocument.Load("words_game(Server).exe.config");
+
+                // Get all the 'data' elements under 'game'
+                var dataElements = xmlDoc.Descendants("data").ToList();
+
+                // Generate a random index to select a 'data' element
+                int randomIndex = r.Next(dataElements.Count);
+
+                var selectedData = dataElements[randomIndex];
+
+
+                int numOfWords = int.Parse(selectedData.Element("WordCount")?.Value ?? "0");
+                List<string> validWords = selectedData.Descendants("Word").Select(w => w.Value).ToList();
+                string gameString = selectedData.Element("CharacterString")?.Value ?? "Not_found";
+
 
                 // Get a stream object for reading and writing
                 NetworkStream stream = client.GetStream();
 
-                SendMsg("here is your letters to play with (" + gameString + " )", stream);
+                SendMsg("your chars : (" + gameString + " ) \n # of words : " + numOfWords, stream);
 
                 // Loop to receive all the data sent by the client.
                 while (true)
                 {
                     // this for testing the connection
-                    if (data != "ping_test")
+
+
+                    data = ReadMsg(stream);
+
+                    // if the user choice to close the client side app
+                    if (data == "shut down")
+                    {
+                        break;
+
+                    }
+
+                    // Process the data sent by the client to see if it in the list
+                    data = CheckWord(data, validWords);
+
+                    // if nothing found in the list 
+                    if (data == "nothing")
+                    {
+                        SendMsg("Sorry!! " + data + "found there", stream);
+                    }
+
+                    // if the input is exist in the list
+                    else
                     {
 
-                        data = ReadMsg(stream);
+                        wordFound++;
 
-                        // if the user choice to close the client side app
-                        if (data == "shut down")
+                        // if the user found all the words 
+                        if (wordFound == numOfWords)
                         {
+                            // send a flag to the client that all words founded , and ask if he wnants play again
+                            SendMsg("all_found", stream);
+                            SendMsg("do you want to play again ?", stream);
+                     
+
                             break;
-
                         }
 
-                        // Process the data sent by the client to see if it in the list
-                        data = CheckWord(data, validWords);
-
-                        // if nothing found in the list 
-                        if (data == "nothing")
-                        {
-                            SendMsg("Sorry!! " + data + "found there", stream);
-                        }
-
-                        // if the input is exist in the list
+                        // if the user entered an exist word  in the list  ,but did not find all of them yet.
                         else
                         {
-
-                            wordFound++;
-
-                            // if the user found all the words 
-                            if (wordFound == 2)
-                            {
-                                // send the last word that he found + ask him if he want to play again
-                                SendMsg("Correct!! \n  you found ( " + wordFound + " ) out of  " + numOfWords
-                                    + "\n Good job , you found all the words " +
-                                    "\n do you want to play again ? (y , n )", stream);
-
-                                // if yes 
-                                if (ReadMsg(stream).ToUpper() == "Y")
-                                {
-                                    // send a flag to the client side to start a new one 
-                                    SendMsg("again", stream);
-                                }
-                                // go out to close the session
-                                break;
-                            }
-
-                            // if the user entered an exist word  in the list  ,but did not find all of them yet.
-                            else
-                            {
-                                //notify him with the new counter
-                                SendMsg("Correct!! \n  you found ( " + wordFound + " ) out of  " + numOfWords, stream);
-                            }
+                            //notify him with the new counter
+                            SendMsg("Correct!! \n  you found ( " + wordFound + " ) out of  " + numOfWords, stream);
                         }
                     }
+
 
                 }
             }
@@ -140,13 +148,11 @@ namespace word_game_Server_
             {
                 // Shutdown and end connection
                 client.Close();
-
             }
         }
 
 
-
-        public string CheckWord(string word, List<string> lists)
+        private string CheckWord(string word, List<string> lists)
         {
 
 
@@ -163,7 +169,7 @@ namespace word_game_Server_
         }
 
 
-        public void SendMsg(string msg, NetworkStream network)
+        private void SendMsg(string msg, NetworkStream network)
         {
             //NetworkStream stream = client.GetStream();
 
@@ -173,7 +179,7 @@ namespace word_game_Server_
 
         }
 
-        public string ReadMsg(NetworkStream network)
+        private string ReadMsg(NetworkStream network)
         {
             int i;
             string input;

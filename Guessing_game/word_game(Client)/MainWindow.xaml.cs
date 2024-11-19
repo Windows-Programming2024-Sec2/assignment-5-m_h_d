@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Windows;
 using System.Windows.Threading;
@@ -36,7 +37,9 @@ namespace word_game_Client_
                 networkStream = tcpClient.GetStream();
 
                 string serverResponse = ReceiveMessage();
-                txtGameInfo.Text = serverResponse;
+                chars_game.Text = serverResponse;
+                chars_game.Visibility = Visibility.Visible;
+
 
                 if (!int.TryParse(txtTimeLimit.Text, out timeRemaining) || timeRemaining <= 0)
                 {
@@ -45,11 +48,8 @@ namespace word_game_Client_
                 }
 
                 StartTimer();
+                DataAccess(false);
 
-                txtIP.IsReadOnly = true;
-                txtName.IsReadOnly = true;
-                txtPort.IsReadOnly = true;
-                txtTimeLimit.IsReadOnly = true;
             }
 
             catch (Exception ex)
@@ -72,10 +72,24 @@ namespace word_game_Client_
 
                 SendMessage(txtGuess.Text);
                 string data = ReceiveMessage();
-                if (data == "again")
+
+                if (data == "all_found")
                 {
+                    MessageBox.Show(data);
+                    dispatcherTimer.Stop();
                     txtGuess.Text = "";
-                    OnConnectClick(sender, e);
+                    MessageBoxResult result = MessageBox.Show(ReceiveMessage(), "exit", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        MessageBox.Show("please reconnect to the server and change the connection inputs ( if you want )");
+                        DataAccess(true);
+                        chars_game.Text = "";
+                        txtGameInfo.Text = "";
+                    }
+                    else
+                    {
+                        this.Close();
+                    }
                 }
                 else
                 {
@@ -99,7 +113,6 @@ namespace word_game_Client_
 
         private string ReceiveMessage()
         {
-
             int bytesRead = networkStream.Read(buffer, 0, buffer.Length);
             return Encoding.ASCII.GetString(buffer, 0, bytesRead);
 
@@ -108,10 +121,12 @@ namespace word_game_Client_
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            dispatcherTimer.Stop();
             MessageBoxResult result = MessageBox.Show("Do you want to leave ?", "exit", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.No)
             {
                 e.Cancel = true;
+                dispatcherTimer.Start();
             }
             else
             {
@@ -144,7 +159,8 @@ namespace word_game_Client_
 
                 dispatcherTimer.Stop();
                 MessageBox.Show("serever closed");
-
+                Content.IsEnabled = false;
+                submit.IsEnabled = false;
             }
 
             // Update the timer display
@@ -179,6 +195,24 @@ namespace word_game_Client_
             }
 
 
+        }
+
+        private void DataAccess(bool status)
+        {
+            if (status)
+            {
+                txtIP.IsReadOnly = false;
+                txtName.IsReadOnly = false;
+                txtPort.IsReadOnly = false;
+                txtTimeLimit.IsReadOnly = false;
+            }
+            if (!status)
+            {
+                txtIP.IsReadOnly = true;
+                txtName.IsReadOnly = true;
+                txtPort.IsReadOnly = true;
+                txtTimeLimit.IsReadOnly = true;
+            }
         }
     }
 }
