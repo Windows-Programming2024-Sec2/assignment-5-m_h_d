@@ -17,6 +17,8 @@ using System.Text;
 using System.Threading;
 using System.Xml.Linq;
 using System.Linq;
+using System.Configuration;
+using System.IO;
 
 
 namespace word_game_Server_
@@ -95,21 +97,21 @@ namespace word_game_Server_
                 String data = null;
                 int wordFound = 0;
 
-                // Load the XML file
-                XDocument xmlDoc = XDocument.Load("words_game(Server).exe.config");
 
-                // Get all the 'data' elements under 'game'
-                var dataElements = xmlDoc.Descendants("data").ToList();
+                string path = ConfigurationSettings.AppSettings["files"];
 
-                // Generate a random index to select a 'data' element
-                int randomIndex = r.Next(dataElements.Count);
+                string[] files = Directory.GetFiles(path, "*.txt");
 
-                var selectedData = dataElements[randomIndex];
+                string selectedFile = files[r.Next(files.Length)];
 
-                // load the game data in variables , and if any of them not exist , replace it with ( 0 or not found)
-                int numOfWords = int.Parse(selectedData.Element("WordCount")?.Value ?? "0");
-                List<string> validWords = selectedData.Descendants("Word").Select(w => w.Value).ToList();
-                string gameString = selectedData.Element("CharacterString")?.Value ?? "Not_found";
+                string[] fileContent = File.ReadAllLines(selectedFile);
+
+
+                string gameString = fileContent[0];
+
+                int numOfWords = int.Parse(fileContent[1]);
+
+                List<string> validWords = fileContent.Skip(2).ToList();
 
 
                 // Get a stream object for reading and writing
