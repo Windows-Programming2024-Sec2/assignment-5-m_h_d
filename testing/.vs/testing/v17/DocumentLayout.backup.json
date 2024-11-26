@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{37993492-11E2-49E5-8F7F-E81CE2C2C8C6}|testing\\testing.csproj|solutionrelative:testing\\service1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{55634EDB-593D-4ED9-A784-6DFE28D49315}|word_game(Client)\\words_game(Client).csproj|c:\\users\\12265\\desktop\\testing\\word_game(client)\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{55634EDB-593D-4ED9-A784-6DFE28D49315}|word_game(Client)\\words_game(Client).csproj|C:\\Users\\12265\\Desktop\\testing\\word_game(client)\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{55634EDB-593D-4ED9-A784-6DFE28D49315}|word_game(Client)\\words_game(Client).csproj|solutionrelative:word_game(client)\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -45,8 +45,7 @@
               "RelativeToolTip": "word_game(Client)\\MainWindow.xaml.cs",
               "ViewState": "AgIAAMoAAAAAAAAAAAAwwNgAAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T18:18:30.681Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-26T18:18:30.681Z"
             },
             {
               "$type": "Document",
@@ -104,7 +103,7 @@
               "RelativeDocumentMoniker": "testing\\Service1.cs",
               "ToolTip": "C:\\Users\\12265\\Desktop\\testing\\testing\\Service1.cs",
               "RelativeToolTip": "testing\\Service1.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAmwDoAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACMAAABnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-25T14:04:25.847Z",
               "EditorCaption": ""

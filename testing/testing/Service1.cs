@@ -28,8 +28,14 @@ namespace testing
         protected override void OnStart(string[] args)
         {
 
+
+
+            // this will run a debugger when the service start 
             Debugger.Launch();
 
+            string logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ServiceLog.txt");
+
+            File.AppendAllText(logFilePath, $"Service started at {DateTime.Now}{Environment.NewLine}");
 
             try
             {
@@ -64,7 +70,9 @@ namespace testing
         protected override void OnStop()
         {
             server.Stop();
-            File.WriteAllText("C:\\tmp\\data.txt", "THIS IS => service stopped at " + DateTime.Now);
+
+            string logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ServiceLog.txt");
+            File.AppendAllText(logFilePath, $"Service stopped at {DateTime.Now}{Environment.NewLine}");
 
         }
 
