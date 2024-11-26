@@ -1,0 +1,13 @@
+C:\Users\12265\Desktop\testing\testing\bin\Debug\testing.exe.config
+C:\Users\12265\Desktop\testing\testing\bin\Debug\testing.exe
+C:\Users\12265\Desktop\testing\testing\bin\Debug\testing.pdb
+C:\Users\12265\Desktop\testing\testing\obj\Debug\testing.csproj.AssemblyReference.cache
+C:\Users\12265\Desktop\testing\testing\obj\Debug\testing.ProjectInstaller.resources
+C:\Users\12265\Desktop\testing\testing\obj\Debug\testing.csproj.GenerateResource.cache
+C:\Users\12265\Desktop\testing\testing\obj\Debug\testing.csproj.CoreCompileInputs.cache
+C:\Users\12265\Desktop\testing\testing\obj\Debug\testing.exe
+C:\Users\12265\Desktop\testing\testing\obj\Debug\testing.pdb
+C:\Users\12265\Desktop\testing\testing\bin\Debug\words_game(Server).exe
+C:\Users\12265\Desktop\testing\testing\bin\Debug\words_game(Server).pdb
+C:\Users\12265\Desktop\testing\testing\bin\Debug\words_game(Server).exe.config
+C:\Users\12265\Desktop\testing\testing\obj\Debug\testing.csproj.Up2Date
